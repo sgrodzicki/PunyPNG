@@ -25,8 +25,8 @@
 /**
  * PHP library for using the PunyPNG API
  *
- * @package	PunyPNG
- * @author	Sebastian Grodzicki <sebastian@grodzicki.pl>
+ * @package		PunyPNG
+ * @author		Sebastian Grodzicki <sebastian@grodzicki.pl>
  * @copyright	Copyright (c) 2011 Sebastian Grodzicki (http://sebastian.grodzicki.pl)
  *
  */
@@ -34,6 +34,11 @@ class PunyPNG
 {
 	/** PunyPNG API URI */
 	const API_URI = 'http://www.punypng.com/api/optimize';
+
+	/** Exception messages */
+	const CURL				= 'cURL library required';
+	const FILE_NOT_FOUND	= 'File "%s" not found';
+	const UNKOWN_ERROR		= 'Something went wrong';
 
 	/**
 	 * PunyPNG API key
@@ -53,6 +58,18 @@ class PunyPNG
 	public function __construct($apiKey)
 	{
 		$this->_checkDependencies();
+		$this->_setApiKey($apiKey);
+	}
+	
+	/**
+	 * Sets PunyPNG API key
+	 * 
+	 * @param	string	PunyPNG API key
+	 * @return	void
+	 * @access	protected
+	 */
+	protected function _setApiKey($apiKey)
+	{
 		$this->_apiKey = $apiKey;
 	}
 
@@ -66,7 +83,7 @@ class PunyPNG
 	protected function _checkDependencies()
 	{
 		if (!in_array('curl', get_loaded_extensions())) {
-			throw new Exception('cURL library required');
+			throw new Exception(self::CURL);
 		}
 	}
 
@@ -80,7 +97,7 @@ class PunyPNG
 	public function optimize($filepath)
 	{
 		$this->_imageValidation($filepath);
-		$this->_sendRequest($filepath);
+		$data = $this->_sendRequest($filepath);
 
 		return $data;
 	}
@@ -95,8 +112,7 @@ class PunyPNG
 	protected function _imageValidation($filepath)
 	{
 		if (!file_exists($filepath) || false === $file = file_get_contents($filepath)) {
-			$message = sprintf('File "%s" not found', $filepath);
-			throw new Exception($message);
+			throw new Exception(sprintf(self::FILE_NOT_FOUND, $filepath));
 		}
 	}
 
@@ -122,8 +138,8 @@ class PunyPNG
 		$response = curl_exec($ch);
 		curl_close($ch);
 
-		if (false === $data = json_decode($json, true)) {
-			throw new Exception('Something went wrong');
+		if (false === $data = json_decode($response, true)) {
+			throw new Exception(self::UNKOWN_ERROR);
 		}
 
 		if (isset($data['error'])) {
