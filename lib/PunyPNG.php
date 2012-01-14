@@ -26,8 +26,8 @@
  * PHP library for using the PunyPNG API
  *
  * @package		PunyPNG
- * @author		Sebastian Grodzicki <sebastian@grodzicki.pl>
- * @copyright	Copyright (c) 2011 Sebastian Grodzicki (http://sebastian.grodzicki.pl)
+ * @author         Sebastian Grodzicki <sebastian@grodzicki.pl>
+ * @copyright      Copyright (c) 2011 Sebastian Grodzicki (http://sebastian.grodzicki.pl)
  *
  */
 class PunyPNG
@@ -36,9 +36,9 @@ class PunyPNG
 	const API_URI = 'http://www.punypng.com/api/optimize';
 
 	/** Exception messages */
-	const CURL				= 'cURL library required';
-	const FILE_NOT_FOUND	= 'File "%s" not found';
-	const UNKOWN_ERROR		= 'Something went wrong';
+	const CURL           = 'cURL library required';
+	const FILE_NOT_FOUND = 'File "%s" not found';
+	const UNKOWN_ERROR   = 'Something went wrong';
 
 	/**
 	 * PunyPNG API key
@@ -60,10 +60,10 @@ class PunyPNG
 		$this->_checkDependencies();
 		$this->_setApiKey($apiKey);
 	}
-	
+
 	/**
 	 * Sets PunyPNG API key
-	 * 
+	 *
 	 * @param	string	PunyPNG API key
 	 * @return	void
 	 * @access	protected
@@ -132,8 +132,8 @@ class PunyPNG
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, array(
-		    'key'	=> $this->getApiKey(),
-		    'img'	=> '@' . $filepath,
+			'key'	=> $this->getApiKey(),
+			'img'	=> '@' . $filepath,
 		));
 		$response = curl_exec($ch);
 		curl_close($ch);
