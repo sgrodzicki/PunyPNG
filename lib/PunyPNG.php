@@ -126,8 +126,7 @@ class PunyPNG
 	 */
 	protected function _sendRequest($filepath)
 	{
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, self::API_URI);
+		$ch = curl_init(self::API_URI);
 		curl_setopt($ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
