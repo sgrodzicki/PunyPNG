@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2011 Sebastian Grodzicki
+ * Copyright (c) 2011-2012 Sebastian Grodzicki
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@
  *
  * @package		PunyPNG
  * @author         Sebastian Grodzicki <sebastian@grodzicki.pl>
- * @copyright      Copyright (c) 2011 Sebastian Grodzicki (http://sebastian.grodzicki.pl)
+ * @copyright      Copyright (c) 2011-2012 Sebastian Grodzicki (http://sebastian.grodzicki.pl)
  *
  */
 class PunyPNG
